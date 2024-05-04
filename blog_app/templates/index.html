@@ -8,18 +8,24 @@
   <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
   <style>
     @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
+      0% {
+        transform: rotate(0deg);
+      }
 
-  .loader {
-    width: 64px;
-    height: 64px;
-    border: 8px solid #9333EA;
-    border-bottom-color: transparent;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .loader {
+      width: 64px;
+      height: 64px;
+      border: 8px solid #9333EA;
+      border-bottom-color: transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      text-align: center;
+    }
   </style>
 </head>
 
@@ -31,7 +37,7 @@
       <button class="py-2 px-4 bg-red-800 hover:bg-red-900 text-white rounded-md"><a href="logout">Logout</a></button>
     </div>
   </header>
-  <main class="container mx-auto px-4 py-10 border max-w-4xl mt-10 rounded-xl">
+  <main class="container mx-auto px-4 py-10 border border-gray-300 max-w-4xl mt-10 rounded-xl">
     <h2 class="text-2xl font-bold mb-4 text-teal-700">Welcome to the Al Blog Generator</h2>
     <p class="text-gray-600 mb-8 text-base sm:text-lg">Generate high-quality blog articles from YouTube videos using
       artificial intelligence. Simply enter the link to the YouTube video below and let the Al create the content for
@@ -42,11 +48,47 @@
         class="border border-gray-300 rounded-md px-2 py-2 w-full sm:w-3/4 bg-gray-100 focus:outline-teal-500 focus:ring-teal-500"
         placeholder="Paste Youtube Link...">
     </div>
-    <div class="flex justify-center items-center hidden">
-      <div class="loader"></div>
-    </div>
-    <button class="py-2 px-4 bg-blue-400 hover:bg-blue-500 text-white rounded-md">Generate</button>
+    <div id="loader" align="center" class="loader my-2 w-full mx-auto hidden"></div>
+    <button class="py-2 px-4 bg-blue-400 hover:bg-blue-500 text-white rounded-md"
+      id="generateBlogButton">Generate</button>
+    <section class="mt-10 flex-grow">
+      <h2 class="text-xl mb-4 font-semibold">Generated Blog</h2>
+      <div id="blogContent" class="mt-2 text-gray-700 space-y-4"></div>
+    </section>
   </main>
+  <script>
+    document.getElementById('generateBlogButton').addEventListener('click', async () => {
+      const youtubeLink = document.getElementById('youtubeLink').value;
+      const loader = document.getElementById('loader');
+      const blogContent = document.getElementById('blogContent');
+
+      if (youtubeLink) {
+        document.getElementById('loader').classList.remove('hidden');
+        blogContent.innerHTML = '';
+
+        const endpoint = '/generate-blog';
+        try {
+          const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ link: youtubeLink })
+          });
+
+          const data = await response.json();
+          blogContent.innerHTML = data.content;
+          loader.classList.add('hidden');
+        } catch (error) {
+          console.error(error);
+          alert('An error occurred while generating the blog');
+          loader.classList.add('hidden');
+        }
+      } else {
+        alert('Please enter a valid YouTube link');
+      }
+    });
+  </script>
 </body>
 
 </html>
