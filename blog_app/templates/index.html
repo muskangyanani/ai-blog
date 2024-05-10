@@ -32,8 +32,9 @@
 <body class="bg-white font-sans">
   <header class="flex justify-between p-4 items-center shadow-md">
     <h1 class="text-xl font-bold text-teal-700">Al Blog Generator</h1>
-    <div class="flex gap-4 items-center font-bold">
-      <a href="#">Welcome {{ user.username }}</a>
+    <div class="flex gap-4 items-center">
+      <a href="/" class="font-bold">Welcome {{ user.username }}</a>
+      <a href="/blog-list" class="hover:underline mx-4">Saved Blog Posts</a>
       <button class="py-2 px-4 bg-red-800 hover:bg-red-900 text-white rounded-md"><a href="logout">Logout</a></button>
     </div>
   </header>
@@ -49,7 +50,7 @@
         placeholder="Paste Youtube Link...">
     </div>
     <div id="loader" align="center" class="loader my-2 w-full mx-auto hidden"></div>
-    <button class="py-2 px-4 bg-blue-400 hover:bg-blue-500 text-white rounded-md"
+    <button class="py-2 px-4 bg-blue-500 hover:bg-blue-400 text-white rounded-md"
       id="generateBlogButton">Generate</button>
     <section class="mt-10 flex-grow">
       <h2 class="text-xl mb-4 font-semibold">Generated Blog</h2>
