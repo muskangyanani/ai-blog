@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Blog Posts</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 font-sans antialiased">
+
+  <!-- Navbar -->
+  <header class="flex justify-between p-4 items-center shadow-md">
+    <h1 class="text-xl font-bold text-teal-700">Al Blog Generator</h1>
+    <div class="flex gap-4 items-center font-bold">
+      <a href="#">Welcome {{ user.username }}</a>
+      <button class="py-2 px-4 bg-red-800 hover:bg-red-900 text-white rounded-md"><a href="logout">Logout</a></button>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <div class="container mx-auto mt-10 px-4 sm:px-0">
+    <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
+
+      <!-- Blog posts section -->
+      <section>
+        <h2 class="text-xl mb-4 font-semibold">All Blog Posts</h2>
+        <div class="flex flex-col gap-2">
+
+          {% for article in blog_articles reversed %}
+          <a href="blog-details/{{article.id}}">
+            <div class="border border-gray-300 p-4 rounded-lg">
+              <h3 class="text-lg font-semibold">{{article.youtube_title}}</h3>
+              <p>{{article.generated_content|truncatechars:80}}</p>
+            </div>
+          </a>
+          {% endfor %}
+        </div>
+      </section>
+
+    </div>
+  </div>
+</body>
+
+</html>

@@ -27,14 +27,14 @@
       <section>
         <h2 class="text-xl mb-4 font-semibold">Blog Post Details</h2>
         <div class="border border-gray-300 p-4 rounded-lg">
-          <h3 class="text-lg font-semibold">Youtube Title</h3>
-          <p class="text-gray-700">Generated content. Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, vero.</p>
+          <h3 class="text-lg font-semibold">{{blog_article_detail.youtube_title}}</h3>
+          <p class="text-gray-700">{{blog_article_detail.generated_content}}</p>
           <hr class="my-4 border-gray-300">
           <h4 class="text-lg font-semibold">Youtube Title</h4>
-          <p class="text-gray-700">This will be the youtube title</p>
+          <p class="text-gray-700">{{blog_article_detail.youtube_title}}</p>
           <h4 class="text-lg font-semibold mt-4">Youtube Link</h4>
           <a href="{{blog_article_detail.youtube_link}}"
-            class="text-blue-600 hover:underline">Link to youtube</a>
+            class="text-blue-600 hover:underline">{{blog_article_detail.youtube_link}}</a>
         </div>
       </section>
     </div>
